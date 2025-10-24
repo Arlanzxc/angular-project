@@ -1,0 +1,33 @@
+.card {
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  text-align: center;
+  padding: 1rem;
+  width: 160px;
+  transition: 0.3s ease;
+  cursor: pointer;
+  transform: translateY(0);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.card h3 {
+  font-size: 1.1rem;
+  color: #333;
+  text-transform: capitalize;
+}
+
+.card:hover h3 {
+  color: var(--primary);
+}

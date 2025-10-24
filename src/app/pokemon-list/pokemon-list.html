@@ -1,0 +1,26 @@
+<div class="search-container">
+  <input
+    type="text"
+    placeholder="Search Pokémon..."
+    (input)="onSearch($event)"
+  />
+</div>
+
+<div class="pokemon-list">
+  @if (filteredPokemons$ | async; as pokemons) {
+    @if (pokemons.length > 0) {
+      <pokemon-card
+        *ngFor="let p of pokemons"
+        [pokemon]="p">
+      </pokemon-card>
+
+      <div class="load-more-container">
+        <button (click)="loadMore()">Load more Pokémon</button>
+      </div>
+    } @else {
+      <p class="no-results">No Pokémon found 🫤</p>
+    }
+  } @else {
+    <p class="no-results">Loading Pokémon...</p>
+  }
+</div>

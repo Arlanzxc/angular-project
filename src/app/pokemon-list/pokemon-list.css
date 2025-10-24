@@ -1,0 +1,57 @@
+.search-container {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.search-container input {
+  width: 80%;
+  max-width: 400px;
+  padding: 0.8rem 1.2rem;
+  border-radius: var(--radius);
+  border: 2px solid #ddd;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.search-container input:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 6px rgba(255, 71, 87, 0.3);
+}
+
+.pokemon-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.no-results {
+  text-align: center;
+  font-style: italic;
+  color: #999;
+  margin-top: 2rem;
+}
+
+.load-more-container {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.load-more-container button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.load-more-container button:hover {
+  background: #ff6b81;
+  box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+}
+
