@@ -9,7 +9,7 @@ export class PokemonService {
   private http = inject(HttpClient);
   private _pokemons$ = new BehaviorSubject<any[]>([]);
   private _error$ = new BehaviorSubject<string | null>(null);
-  private _nextUrl: string | null = 'https://pokeapi.co/api/v2/pokemon?limit=400';
+  private _nextUrl: string | null = 'https://pokeapi.co/api/v2/pokemon?limit=100';
 
   pokemons$ = this._pokemons$.asObservable();
   error$ = this._error$.asObservable();
