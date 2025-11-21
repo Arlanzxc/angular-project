@@ -1,0 +1,47 @@
+/* ====== POKEBALL BACKGROUND ====== */
+/* .pokeball-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  height: 280px;
+  opacity: 0.07; /* прозрачность, чтобы не мешало тексту */
+/* 
+  background: url('assets/pokeball.png') no-repeat center/contain;
+  transform: translate(-50%, -50%);
+  animation: spin 20s linear infinite;
+  pointer-events: none; /* чтобы элемент не мешал кликам */
+  
+
+/* ====== HOME WRAPPER (обновлено с z-index) ====== */
+.home {
+  position: relative;
+  text-align: center;
+  padding: 80px 20px;
+  color: black;
+  background: white;
+  min-height: 80vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  animation: fadeIn 0.8s ease;
+  overflow: hidden;
+}
+
+.home * {
+  position: relative;
+  z-index: 2; /* чтобы текст был поверх покебола */
+}
+
+/* ====== ANIMATION ====== */
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

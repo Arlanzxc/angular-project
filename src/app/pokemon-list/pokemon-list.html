@@ -19,3 +19,29 @@
 <div class="load-more-container">
   <button (click)="loadMore()">Load More</button>
 </div>
+<!-- <div class="search-container">
+  <input
+    type="text"
+    placeholder="Search Pokémon..."
+    (input)="onSearch($event)"
+  />
+</div>
+
+<div class="pokemon-list">
+  @if (filteredPokemons$ | async; as pokemons) {
+    @if (pokemons?.length ?? 0 > 0) {
+
+  @for (p of pokemons; track p.id) {
+    <app-pokemon-card [pokemon]="p"></app-pokemon-card>
+  }
+
+} @else {
+  <p class="no-results">No Pokémon found 🫤</p>
+}
+  } @else {
+    <p class="no-results">Loading Pokémon...</p>
+  }
+</div>
+<div class="load-more-container">
+        <button (click)="loadMore()">Load More</button>
+</div> -->
