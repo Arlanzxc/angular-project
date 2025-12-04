@@ -21,7 +21,7 @@ export class PokemonDetailsComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private store = inject(Store);
 
-  // Селекторы из стора
+
   pokemon$ = this.store.select(selectSelectedPokemon);
   loading$ = this.store.select(selectDetailsLoading);
   error$ = this.store.select(selectDetailsError);
@@ -29,13 +29,12 @@ export class PokemonDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      // Диспатчим экшен загрузки
+
       this.store.dispatch(PokemonActions.loadPokemonDetails({ id }));
     }
   }
   
   ngOnDestroy() {
-    // Очищаем выбранного покемона при уходе со страницы, чтобы не мелькал старый при следующем открытии
     this.store.dispatch(PokemonActions.clearSelectedPokemon());
   }
 }
