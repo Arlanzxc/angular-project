@@ -1,6 +1,20 @@
-<nav class="navbar">
-  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-  <a routerLink="/pokemons" routerLinkActive="active">Pokemons</a>
-  <a routerLink="/about" routerLinkActive="active">About</a>
-  <a routerLink="/login" routerLinkActive="active">Login</a>
+<nav class="navbar"> 
+  <div class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/pokemons" routerLinkActive="active">Pokemons</a>
+    <a routerLink="/about" routerLinkActive="active">About</a>
+  </div>
+
+  <span class="spacer"></span>
+
+  <div class="auth-links">
+    @if (!user()) {
+      <a routerLink="/login" routerLinkActive="active" class="nav-btn">Login</a>
+      <a routerLink="/signup" routerLinkActive="active" class="nav-btn primary">Sign Up</a>
+    } @else {
+      <span class="user-email">{{ user()?.email }}</span>
+      <a routerLink="/profile" routerLinkActive="active" class="nav-btn">Profile</a>
+      <button (click)="logout()" class="logout-btn">Logout</button>
+    }
+  </div>
 </nav>

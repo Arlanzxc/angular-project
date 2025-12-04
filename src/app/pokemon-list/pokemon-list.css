@@ -1,58 +1,91 @@
 .search-container {
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto 20px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
 }
 
-.search-container input {
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 16px;
-  border-radius: 12px;
-  border: 2px solid #e0e0e0;
-  outline: none;
-  transition: 0.25s;
-  background: #fff;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+.pokemon-search-input {
+    padding: 10px 15px;
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.search-container input:focus {
-  border-color: #4dabf7;
-  box-shadow: 0 4px 16px rgba(77, 171, 247, 0.25);
-}
-
-.pokemon-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  width: 100%;
-  padding: 10px 0;
+.pokemon-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto; 
 }
 
 .load-more-container {
-  display: flex;
-  justify-content: center;
-  margin: 25px 0;
+    text-align: center;
+    padding: 20px;
 }
 
-.load-more-container button {
-  padding: 12px 24px;
-  font-size: 18px;
-  border: none;
-  border-radius: 14px;
-  cursor: pointer;
-  background: rgba(227, 227, 15, 0.784);
-  color: rgb(15, 12, 12);
-  font-weight: 600;
-  transition: 0.3s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+.load-more-button {
+    padding: 12px 30px;
+    background-color: #3b4cca; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.load-more-container button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+.load-more-button:hover:not([disabled]) {
+    background-color: #2a38a0;
+    transform: translateY(-1px);
 }
 
-.load-more-container button:active {
-  transform: scale(0.97);
+.load-more-button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+.error-message, .loading-message {
+    padding: 15px;
+    margin: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.error-message {
+    background-color: #fdd;
+    color: #c00;
+}
+.loading-message {
+    background-color: #ddf;
+    color: #00c;
+}
+
+.pokemon-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    text-align: center;
+    padding: 15px;
+}
+
+.pokemon-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }

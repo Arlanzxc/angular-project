@@ -1,74 +1,57 @@
-import { Component, inject } from '@angular/core';
-import { PokemonService } from '../services/pokemon.service';
-import { PokemonCardComponent } from '../pokemon-card/pokemon-card';
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule, AsyncPipe } from '@angular/common'; 
 import { FormsModule } from '@angular/forms';
-import { BehaviorSubject, combineLatest, debounceTime, map } from 'rxjs';
+import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+import { PokemonCardComponent } from '../pokemon-card/pokemon-card';
+import { PokemonActions } from '../pokemons/state/pokemon.actions';
+import { 
+  selectAllPokemons, 
+  selectListLoading, 
+  selectListError, 
+  selectCurrentOffset 
+} from '../pokemons/state/pokemon.selectors';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, PokemonCardComponent],
+  imports: [CommonModule, FormsModule, PokemonCardComponent, RouterLink, AsyncPipe],
   templateUrl: './pokemon-list.html',
   styleUrl: './pokemon-list.css'
 })
-export class PokemonListComponent {
-  private service = inject(PokemonService);
+export class PokemonListComponent implements OnInit {
+  private store = inject(Store);
+  
+  pokemons$ = this.store.select(selectAllPokemons);
+  loading$ = this.store.select(selectListLoading);
+  error$ = this.store.select(selectListError);
+  offset$ = this.store.select(selectCurrentOffset);
 
-  pokemons$ = this.service.pokemons$;
-  search$ = new BehaviorSubject<string>('');
+  searchQuery = '';
 
-  filteredPokemons$ = combineLatest([this.pokemons$, this.search$]).pipe(
-    debounceTime(250),
-    map(([pokemons, search]) =>
-      pokemons.filter(p => p.name.toLowerCase().includes(search.toLowerCase()))
-    )
-  );
+  ngOnInit() {
+    this.pokemons$.pipe(take(1)).subscribe(pokemons => {
+      if (pokemons.length === 0) {
+        this.store.dispatch(PokemonActions.loadPokemons({ offset: 0 }));
+      }
+    });
+  }
 
   onSearch(event: Event) {
     const input = event.target as HTMLInputElement;
-    this.search$.next(input.value);
+    this.searchQuery = input.value;
+  }
+  
+  getFilteredPokemons(pokemons: any[]) {
+    if (!this.searchQuery) return pokemons;
+    return pokemons.filter(p => p.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
   }
 
   loadMore() {
-    this.service.loadMorePokemons();
+    this.offset$.pipe(take(1)).subscribe(offset => {
+      this.store.dispatch(PokemonActions.loadPokemons({ offset: offset }));
+    });
   }
 }
-// import { Component, inject } from '@angular/core';
-// import { PokemonService } from '../services/pokemon.service';
-// import { PokemonCardComponent } from '../pokemon-card/pokemon-card';
-// import { CommonModule } from '@angular/common';
-// import { FormsModule } from '@angular/forms';
-// import { debounceTime, map } from 'rxjs/operators';
-// import { BehaviorSubject, combineLatest } from 'rxjs';
-
-// @Component({
-//   selector: 'app-pokemon-list',
-//   standalone: true,
-//   imports: [CommonModule, FormsModule, PokemonCardComponent],
-//   templateUrl: './pokemon-list.html',
-//   styleUrl: './pokemon-list.css'
-// })
-// export class PokemonListComponent {
-//   private service = inject(PokemonService);
-
-//   pokemons$ = this.service.pokemons$;
-//   search$ = new BehaviorSubject<string>('');
-
-//   filteredPokemons$ = combineLatest([this.pokemons$, this.search$]).pipe(
-//     debounceTime(300),
-//     map(([pokemons, search]) =>
-//       pokemons.filter(p => p.name.toLowerCase().includes(search.toLowerCase()))
-//     )
-//   );
-
-//   onSearch(event: Event) {
-//     const target = event.target as HTMLInputElement;
-//     this.search$.next(target.value);
-//   }
-
-//   loadMore() {
-//   this.service.loadPokemons();
-// }
-
-// }

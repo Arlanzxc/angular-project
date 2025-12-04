@@ -3,9 +3,9 @@
 
     <img src="/pokemon-logo.svg" class="logo" alt="Pokemon Logo">
 
-    <h2>Welcome Trainer!</h2>
+    <h2>Trainer Signup</h2>
 
-    <form (submit)="login(); $event.preventDefault()">
+    <form (submit)="signup(); $event.preventDefault()">
 
       <input
         type="email"
@@ -25,8 +25,17 @@
         required
       />
 
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        [(ngModel)]="confirmPassword"
+        name="confirmPassword"
+        class="form-input"
+        required
+      />
+
       <button class="pokeball-btn" type="submit" [disabled]="loading">
-        {{ loading ? 'Logging in...' : 'Login' }}
+        {{ loading ? 'Signing up...' : 'Sign Up' }}
       </button>
 
     </form>
@@ -36,8 +45,8 @@
     }
 
     <p>
-      Don't have an account?
-      <a routerLink="/signup">Sign up</a>
+      Already have an account?
+      <a routerLink="/login">Login</a>
     </p>
 
   </div>

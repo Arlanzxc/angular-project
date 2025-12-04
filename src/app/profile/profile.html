@@ -1,0 +1,13 @@
+<div class="profile-container">
+  <div class="avatar">👤</div>
+  <h2>Trainer Profile</h2>
+  
+  @if (currentUser()) {
+    <p><strong>Email:</strong> {{ currentUser()?.email }}</p>
+    <p><strong>User ID:</strong> {{ currentUser()?.uid }}</p>
+    
+    <button (click)="logout()">Log Out</button>
+  } @else {
+    <p>Loading user data...</p>
+  }
+</div>

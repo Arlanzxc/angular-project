@@ -1,0 +1,35 @@
+<div class="details-wrapper">
+  
+  @if (loading$ | async) {
+    <div class="loading">Loading details...</div>
+  }
+
+  @if (error$ | async; as error) {
+    <div class="error">Error: {{ error }}</div>
+  }
+
+  @if (pokemon$ | async; as pokemon) {
+    <div class="details-container">
+      <h2>{{ pokemon.name | titlecase }}</h2>
+      
+      <div class="img-container">
+         <img [src]="pokemon.sprites?.other?.['official-artwork']?.front_default || pokemon.sprites?.front_default" [alt]="pokemon.name">
+      </div>
+
+      <p><strong>Height:</strong> {{ pokemon.height }}</p>
+      <p><strong>Weight:</strong> {{ pokemon.weight }}</p>
+      
+      <p><strong>Types:</strong> 
+        @for(t of pokemon.types; track t.type.name) {
+          <span class="type-badge">{{ t.type.name }} </span>
+        }
+      </p>
+      
+      <p><strong>Abilities:</strong> 
+        @for(a of pokemon.abilities; track a.ability.name) {
+          <span>{{ a.ability.name }} </span>
+        }
+      </p>
+    </div>
+  }
+</div>

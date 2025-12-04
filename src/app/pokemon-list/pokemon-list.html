@@ -3,45 +3,40 @@
     type="text"
     placeholder="Search Pokémon..."
     (input)="onSearch($event)"
+    class="pokemon-search-input"
   />
 </div>
 
-<div class="pokemon-list">
-  @if (filteredPokemons$ | async; as pokemons) {
-    @for (p of pokemons; track p.name) {
-      <app-pokemon-card [pokemon]="p"></app-pokemon-card>
-    }
-  } @else {
-    <p>Loading Pokémon...</p>
-  }
-</div>
-
-<div class="load-more-container">
-  <button (click)="loadMore()">Load More</button>
-</div>
-<!-- <div class="search-container">
-  <input
-    type="text"
-    placeholder="Search Pokémon..."
-    (input)="onSearch($event)"
-  />
-</div>
-
-<div class="pokemon-list">
-  @if (filteredPokemons$ | async; as pokemons) {
-    @if (pokemons?.length ?? 0 > 0) {
-
-  @for (p of pokemons; track p.id) {
-    <app-pokemon-card [pokemon]="p"></app-pokemon-card>
-  }
-
-} @else {
-  <p class="no-results">No Pokémon found 🫤</p>
+@if (error$ | async; as error) {
+  <div class="error-message">
+    Error: {{ error }}
+  </div>
 }
-  } @else {
-    <p class="no-results">Loading Pokémon...</p>
+
+<div class="pokemon-list-grid">
+  @if (pokemons$ | async; as pokemons) {
+    @for (p of getFilteredPokemons(pokemons); track p.name) {
+      <a [routerLink]="['/pokemon', p.id]">
+        <app-pokemon-card [pokemon]="p"></app-pokemon-card>
+      </a>
+    }
+    
+    @if (pokemons.length === 0 && !(loading$ | async)) {
+       <p class="text-center w-full">No Pokémon loaded.</p>
+    }
   }
 </div>
+
 <div class="load-more-container">
-        <button (click)="loadMore()">Load More</button>
-</div> -->
+  <button 
+    (click)="loadMore()" 
+    [disabled]="loading$ | async" 
+    class="load-more-button"
+  >
+    @if (loading$ | async) {
+      Loading...
+    } @else {
+      Load More
+    }
+  </button>
+</div>
